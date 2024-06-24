@@ -1,0 +1,50 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Book {
+  author       String?
+  availability EnumBookAvailability?
+  createdAt    DateTime              @default(now())
+  id           String                @id @default(cuid())
+  status       EnumBookStatus?
+  title        String?
+  updatedAt    DateTime              @updatedAt
+}
+
+model User {
+  createdAt    DateTime            @default(now())
+  email        String?             @unique
+  firstName    String?
+  hashedPwd    String?
+  id           String              @id @default(cuid())
+  lastName     String?
+  memberRole   EnumUserMemberRole?
+  password     String
+  passwordHash String?
+  role         EnumUserRole?
+  roles        Json
+  updatedAt    DateTime            @updatedAt
+  username     String              @unique
+}
+
+enum EnumBookAvailability {
+  Option1
+}
+
+enum EnumBookStatus {
+  Option1
+}
+
+enum EnumUserMemberRole {
+  Option1
+}
+
+enum EnumUserRole {
+  Option1
+}
